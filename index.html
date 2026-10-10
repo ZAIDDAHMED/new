@@ -119,8 +119,16 @@
           <h2>Carved marble made for meaningful spaces</h2>
         </div>
 
+        <div class="product-filters" aria-label="Product categories">
+          <button type="button" class="filter-btn active" data-filter="all">All</button>
+          <button type="button" class="filter-btn" data-filter="mandir">Mandir</button>
+          <button type="button" class="filter-btn" data-filter="mosque">Mosque</button>
+          <button type="button" class="filter-btn" data-filter="custom">Custom</button>
+          <button type="button" class="filter-btn" data-filter="wall-art">Wall art</button>
+        </div>
+
         <div class="products">
-          <article class="product">
+          <article class="product product-item" data-category="custom">
             <img src="tulsi.jpeg" alt="Hand-carved white marble pedestal with floral details" />
             <div class="product-body">
               <span class="product-tag">Custom carving</span>
@@ -130,7 +138,7 @@
             </div>
           </article>
 
-          <article class="product">
+          <article class="product product-item" data-category="mandir">
             <img src="mandir.jpeg" alt="Ornate white marble mandir against a deep teal wall" />
             <div class="product-body">
               <span class="product-tag">Mandir</span>
@@ -140,7 +148,7 @@
             </div>
           </article>
 
-          <article class="product">
+          <article class="product product-item" data-category="wall-art">
             <img src="wall.jpeg" alt="Illuminated marble wall panel with a carved tree of life" />
             <div class="product-body">
               <span class="product-tag">Wall art</span>
@@ -150,7 +158,7 @@
             </div>
           </article>
 
-          <article class="product">
+          <article class="product product-item" data-category="mandir">
             <img src="gurudwara.jpeg" alt="White carved marble architectural entrance with an ornate arch" />
             <div class="product-body">
               <span class="product-tag">GURUDWARA SAHIB</span>
@@ -159,15 +167,8 @@
               <a class="product-price" href="https://wa.me/919588010003?text=Hello%20Nasseb%20Marbles%2C%20I%20want%20a%20price%20for%20Carved%20Marble%20Entrance." target="_blank" rel="noopener noreferrer">Price on request</a>
             </div>
           </article>
-          
 
-        <!--''' to add a new product, we can copy
-          the structure of the existing product articles and replace 
-          the image source, alt text, product tag, title, and description with
-           the details of the new product. For example: -->
-
-
-          <article class="product">
+          <article class="product product-item" data-category="mosque">
             <img src="imagemimber.jpeg" alt="White marble prayer niche with a carved arch and stepped platform" />
             <div class="product-body">
               <span class="product-tag">MOSQUE</span>
@@ -402,6 +403,22 @@
       window.open(`https://wa.me/919588010003?text=${message}`, '_blank', 'noopener,noreferrer');
       closeQuoteDialog();
       quoteModalForm.reset();
+    });
+
+    const homeFilterButtons = document.querySelectorAll('.filter-btn');
+    const homeProductItems = document.querySelectorAll('.product-item');
+
+    homeFilterButtons.forEach((button) => {
+      button.addEventListener('click', () => {
+        const selectedFilter = button.dataset.filter;
+
+        homeFilterButtons.forEach((btn) => btn.classList.toggle('active', btn === button));
+
+        homeProductItems.forEach((item) => {
+          const matches = selectedFilter === 'all' || item.dataset.category === selectedFilter;
+          item.classList.toggle('is-hidden', !matches);
+        });
+      });
     });
   </script>
 </body>
